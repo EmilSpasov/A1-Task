@@ -15,7 +15,7 @@ namespace Zoo
 
         protected virtual int AnimalHealthLimit { get; set; }
 
-        public int Health { get; set; }
+        protected int Health { get; set; }
 
         public virtual bool IsDead { get; protected set; }
 
