@@ -2,20 +2,20 @@
 {
     public class Calculator
     {
-        public decimal Calculate(decimal monthlyFee,
+        public decimal Calculate(double monthlyFee,
             int numOfSentSms,
             int numOfSentMms,
             int notIncludedMinutesToA1,
             int notIncludedMinutesToTelenor,
             int notIncludedMinutesToVivacom,
             int roumingMinutes,
-            decimal notIncludedUsedMbInCountry,
-            decimal notIncludedUsedMbInEu,
-            decimal includedUsedMbOutOfEu,
-            decimal otherTaxes,
-            decimal discount)
+            double notIncludedUsedMbInCountry,
+            double notIncludedUsedMbInEu,
+            double includedUsedMbOutOfEu,
+            double otherTaxes,
+            double discount)
         {
-            var result = monthlyFee;
+            var result = (decimal)monthlyFee;
 
             //Add Sms Price
             result += CalculateSmsPrice(numOfSentSms) * numOfSentSms;
@@ -31,15 +31,15 @@
 
             result += roumingMinutes * 0.15m;
 
-            result += notIncludedUsedMbInCountry * 0.02m;
+            result += (decimal)notIncludedUsedMbInCountry * 0.02m;
 
-            result += notIncludedUsedMbInEu * 0.05m;
+            result += (decimal)notIncludedUsedMbInEu * 0.05m;
 
-            result += includedUsedMbOutOfEu * 0.20m;
+            result += (decimal)includedUsedMbOutOfEu * 0.20m;
 
-            result += otherTaxes;
+            result += (decimal)otherTaxes;
 
-            result -= discount;
+            result -= (decimal)discount;
 
             return result;
         }
