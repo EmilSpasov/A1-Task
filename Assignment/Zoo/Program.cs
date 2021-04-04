@@ -32,7 +32,7 @@ namespace Zoo
                 new Monkey(),
             };
 
-            zoo.AddAnimal(animals);
+            zoo.AddAnimals(animals);
             
             zoo.Starvation(r);
 

@@ -34,9 +34,9 @@ namespace Zoo
             this.animals.Add(animal);
         }
 
-        public void AddAnimal(ICollection<Animal> animal)
+        public void AddAnimals(ICollection<Animal> animals)
         {
-            this.animals.AddRange(animal);
+            this.animals.AddRange(animals);
         }
 
         public int Count()

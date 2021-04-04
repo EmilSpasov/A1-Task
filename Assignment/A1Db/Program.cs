@@ -20,21 +20,24 @@ namespace A1Db
             string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"Files\offers.csv");
 
             var csvTable = new DataTable();
-            using var csvReader = new CsvReader(new StreamReader(File.OpenRead(path)), true);
-            csvTable.Load(csvReader);
-
+           
+            using (var csvReader = new CsvReader(new StreamReader(File.OpenRead(path)), true))
+            {
+                csvTable.Load(csvReader);
+            }
+            
             var data = new List<Offer>();
 
             csvTable.Columns.Add("val");
 
             for (int i = 0; i < csvTable.Rows.Count; i++)
             {
-                var row1 = csvTable.Rows[i][0].ToString();
-                var row2 = string.IsNullOrEmpty(csvTable.Rows[i][1].ToString()) ? null : csvTable.Rows[i][1].ToString();
+                var column1 = csvTable.Rows[i][0].ToString();
+                var column2 = csvTable.Rows[i][1].ToString();
 
-                var firstRow = string.Join(".", new string[] { row1, row2 }.Where(s => !string.IsNullOrEmpty(s)));
-
-                var values = firstRow.Split(";");
+                var currentRow = string.Join(".", new string[] { column1, column2 }.Where(s => !string.IsNullOrEmpty(s)));
+              
+                var values = currentRow.Split(";");
 
                 var id = int.Parse(values[0]);
                 var monthlyFee = double.Parse(values[1]);
@@ -50,7 +53,7 @@ namespace A1Db
                     CancelledContractsForMonth = cancelledContactsForMonth,
                 };
 
-                if (!context.Offers.Any(x => x.Id == id))
+                if (context.Offers.All(x => x.Id != id))
                 {
                     data.Add(offer);
                 }

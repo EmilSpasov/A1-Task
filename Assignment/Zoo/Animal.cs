@@ -4,13 +4,9 @@ namespace Zoo
 {
     public abstract class Animal
     {
-        private const int health = GlobalConstants.InitialHealthPoints;
-        private const int maxHealth = GlobalConstants.MaxHealth;
-        private const int minHealth = GlobalConstants.MinHealth;
-
         protected Animal()
         {
-            this.Health = health;
+            this.Health = GlobalConstants.InitialHealthPoints;
         }
 
         protected virtual int AnimalHealthLimit { get; set; }
@@ -22,18 +18,20 @@ namespace Zoo
         public virtual void Starving(int hpToRemove)
         {
             this.Health -= hpToRemove;
-            if (this.Health < minHealth)
+
+            if (this.Health < GlobalConstants.MinHealth)
             {
-                this.Health = minHealth;
+                this.Health = GlobalConstants.MinHealth;
             }
         }
 
         public void Feed(int hpToRecover)
         {
             this.Health += hpToRecover;
-            if (this.Health > maxHealth)
+
+            if (this.Health > GlobalConstants.MaxHealth)
             {
-                this.Health = maxHealth;
+                this.Health = GlobalConstants.MaxHealth;
             }
         }
     }
