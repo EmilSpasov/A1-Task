@@ -35,8 +35,12 @@ namespace Zoo
             zoo.AddAnimals(animals);
             
             zoo.Starvation(r);
+            zoo.Starvation(r);
+           
 
-            zoo.Feeding(r);
+            zoo.Feeding();
+            zoo.Feeding();
+            zoo.Feeding();
 
             Console.WriteLine(zoo.Count());
         }

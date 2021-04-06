@@ -7,10 +7,12 @@ namespace Zoo
     public class Zoo
     {
         private readonly List<Animal> animals;
+        private readonly Dictionary<string, int> dictionary;
 
         public Zoo()
         {
             this.animals = new List<Animal>();
+            this.dictionary = new Dictionary<string, int>();
         }
 
         public void Starvation(Random random)
@@ -21,12 +23,23 @@ namespace Zoo
             }
         }
 
-        public void Feeding(Random random)
+        public void Feeding()
         {
+            var random = new Random();
+
             foreach (var animal in this.animals.Where(x => x.IsDead == false))
             {
-                animal.Feed(random.Next(5, 25));
+                if (!dictionary.ContainsKey(animal.GetType().Name))
+                {
+                    int value = random.Next(5, 26);
+
+                    dictionary.Add(animal.GetType().Name, value);
+                }
+
+                animal.Feed(dictionary[animal.GetType().Name]);
             }
+
+            dictionary.Clear();
         }
 
         public void AddAnimal(Animal animal)
@@ -34,9 +47,9 @@ namespace Zoo
             this.animals.Add(animal);
         }
 
-        public void AddAnimals(ICollection<Animal> animals)
+        public void AddAnimals(ICollection<Animal> animalsToAdd)
         {
-            this.animals.AddRange(animals);
+            this.animals.AddRange(animalsToAdd);
         }
 
         public int Count()

@@ -13,7 +13,7 @@ namespace Zoo
 
         protected int Health { get; set; }
 
-        public virtual bool IsDead { get; protected set; }
+        public bool IsDead { get; protected set; }
 
         public virtual void Starving(int hpToRemove)
         {
@@ -22,6 +22,11 @@ namespace Zoo
             if (this.Health < GlobalConstants.MinHealth)
             {
                 this.Health = GlobalConstants.MinHealth;
+            }
+
+            if (this.Health < this.AnimalHealthLimit)
+            {
+                this.IsDead = true;
             }
         }
 

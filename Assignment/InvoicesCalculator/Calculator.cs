@@ -2,44 +2,33 @@
 {
     public class Calculator
     {
-        public decimal Calculate(double monthlyFee,
-            int numOfSentSms,
-            int numOfSentMms,
-            int notIncludedMinutesToA1,
-            int notIncludedMinutesToTelenor,
-            int notIncludedMinutesToVivacom,
-            int roumingMinutes,
-            double notIncludedUsedMbInCountry,
-            double notIncludedUsedMbInEu,
-            double includedUsedMbOutOfEu,
-            double otherTaxes,
-            double discount)
+        public decimal Calculate(CalculatorInputModel input)
         {
-            var result = (decimal)monthlyFee;
+            var result = (decimal)input.MonthlyFee;
 
             //Add Sms Price
-            result += CalculateSmsPrice(numOfSentSms) * numOfSentSms;
+            result += CalculateSmsPrice(input.NumOfSentSms) * input.NumOfSentSms;
 
             //Add Mms Price
-            result += CalculateMmsPrice(numOfSentMms) * numOfSentMms;
+            result += CalculateMmsPrice(input.NumOfSentMms) * input.NumOfSentMms;
 
-            result += notIncludedMinutesToA1 * 0.03m;
+            result += input.NotIncludedMinutesToA1 * 0.03m;
 
-            result += notIncludedMinutesToTelenor * 0.09m;
+            result += input.NotIncludedMinutesToTelenor * 0.09m;
 
-            result += notIncludedMinutesToVivacom * 0.09m;
+            result += input.NotIncludedMinutesToVivacom * 0.09m;
 
-            result += roumingMinutes * 0.15m;
+            result += input.RoumingMinutes * 0.15m;
 
-            result += (decimal)notIncludedUsedMbInCountry * 0.02m;
+            result += (decimal)input.NotIncludedUsedMbInCountry * 0.02m;
 
-            result += (decimal)notIncludedUsedMbInEu * 0.05m;
+            result += (decimal)input.NotIncludedUsedMbInEu * 0.05m;
 
-            result += (decimal)includedUsedMbOutOfEu * 0.20m;
+            result += (decimal)input.IncludedUsedMbOutOfEu * 0.20m;
 
-            result += (decimal)otherTaxes;
+            result += (decimal)input.OtherTaxes;
 
-            result -= (decimal)discount;
+            result -= (decimal)input.Discount;
 
             return result;
         }
@@ -50,7 +39,7 @@
             {
                 return 0.25m;
             }
-            else if (numOfSentMms <= 100)
+            if (numOfSentMms <= 100)
             {
                 return 0.23m;
             }
@@ -64,7 +53,7 @@
             {
                 return 0.18m;
             }
-            else if (numOfSentSms <= 100)
+            if (numOfSentSms <= 100)
             {
                 return 0.16m;
             }
